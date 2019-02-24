@@ -2,9 +2,9 @@ const fetch = require('node-fetch');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-app.use(bodyParser);
+app.use(bodyParser.json());
 
-const port = process.env.port;
+const port = process.env.PORT;
 const slackURL = process.env.slackURL;
 const secret = process.env.secret;
 
