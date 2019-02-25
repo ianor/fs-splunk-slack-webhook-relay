@@ -30,7 +30,7 @@ app.post('/:key', (req, res) => {
       message = `${icon}  A *${successful}* ingest was logged by AMCS with the following information:`;
       attachments.unshift({
         fallback: username,
-        color: '#4b94fc',
+        color: '#aaaaaa',
         text: `Duration: ${Math.round(10*parseInt(duration)/60/60)/10}h \nArtifact Count: ${artifactCount} \nFolder Count: ${folderCount}`
       });
       break;
