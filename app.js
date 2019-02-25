@@ -6,22 +6,33 @@ app.use(bodyParser.json());
 
 const port = process.env.PORT;
 const slackURL = process.env.slackURL;
-const secret = process.env.secret;
+const ingestKey = process.env.ingestKey;
+const noIngestKey = process.env.noIngestKey;
 
-app.post('/:secret', (req, res) => {
-  if (req.params.secret !== secret) {
-    console.warn('*** Wrong secret ***')
-    return;
-  }
+app.post('/:key', (req, res) => {
   const payload = req.body;
   console.log(payload);
+
+  let message = null;
+  switch (req.params.key) {
+    case ingestKey:
+
+      break;
+    case noIngestKey:
+      const { daysSinceLastEvent } = payload.result;
+      message = `<!channel> There has not been an ingest in *${daysSinceLastEvent}* days (as reported by AMCS).
+      Something might be wrong :grimacing:.`;
+      break;
+    default:
+      console.warn('*** Key not recognized ***')
+      return;
+  }
+  
+  
 
   //transform to a proper slack payload and post to slackURL
   const username = 'Splunk';
   const link = payload.results_link; //eslint-disable-line camelcase
-  const { daysSinceLastEvent } = payload.result;
-  const message = `<!channel> There has not been an ingest in *${daysSinceLastEvent}* days (as reported by AMCS).
-  Something might be wrong :grimacing:.`;
   let postData = {
     username,
     text: message,
@@ -45,6 +56,7 @@ app.post('/:secret', (req, res) => {
 
 
   /*
+  // No ingest event
   {
     owner: 'ianor182',
     sid: 'scheduler__ianor182_ZnMtaW5maW5pdHktZW5naW5lZXJpbmctbWV0cmljcw__Test_at_1550981700_30916_E2238C8D-27D7-436D-A927-1CC589B46408',
