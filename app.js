@@ -44,7 +44,7 @@ app.post('/:key', (req, res) => {
   let postData = {
     username,
     text: message,
-    icon_emoji: icon, // eslint-disable-line camelcase
+    // icon_emoji: icon, // eslint-disable-line camelcase
     attachments: [
       {
         fallback: username,
@@ -61,7 +61,11 @@ app.post('/:key', (req, res) => {
     body: JSON.stringify(postData),
     headers: { 'Content-Type': 'application/json' }
   }).then(res => {
-    if (!res.ok) console.log('*** Failed to post ***');
+    if (!res.ok) {
+      console.log('*** Failed to post ***');
+      console.log(res.status);
+      console.log(res.message);
+    }
   });
 
 
