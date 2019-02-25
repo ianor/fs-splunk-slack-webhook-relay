@@ -14,14 +14,21 @@ app.post('/:key', (req, res) => {
   console.log(payload);
 
   let message = null;
+  let icon = null;
   switch (req.params.key) {
     case ingestKey:
-
+      const { folderCount, success, duration, artifactCount } = payload.result;
+      icon = success === 'successful' ? ':white_check_mark:' : ':x:';
+      message = `A ${success} ingest was detected with the following information:
+      Duration: ${parseInt(duration)/60/60}h
+      Artifact Count: ${artifactCount}
+      Folder Count: ${folderCount}`;
       break;
     case noIngestKey:
       const { daysSinceLastEvent } = payload.result;
       message = `<!channel> There has not been an ingest in *${daysSinceLastEvent}* days (as reported by AMCS).
       Something might be wrong :grimacing:.`;
+      icon = ':question:';
       break;
     default:
       console.warn('*** Key not recognized ***')
@@ -36,7 +43,7 @@ app.post('/:key', (req, res) => {
   let postData = {
     username,
     text: message,
-    //icon_emoji: emoji, // eslint-disable-line camelcase
+    icon_emoji: icon, // eslint-disable-line camelcase
     attachments: [
       {
         fallback: username,
@@ -67,6 +74,5 @@ app.post('/:key', (req, res) => {
   }
   */
 
-});
 
 app.listen(port, () => console.info(`Application running on port ${port}`));
