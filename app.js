@@ -37,7 +37,7 @@ app.post('/:key', (req, res) => {
 
     case noIngestKey:
       const { daysSinceLastEvent } = payload.result;
-      message = `:question: <!channel> There has not been an ingest in *${daysSinceLastEvent}* days (as reported by AMCS).
+      message = `:question: There has not been an ingest in *${daysSinceLastEvent}* days (as reported by AMCS).
       Something might be wrong :grimacing:.`;
       break;
 
@@ -47,7 +47,7 @@ app.post('/:key', (req, res) => {
       return;
   }
   
-  
+  // <!channel>
 
   //transform to a proper slack payload and post to slackURL
   
