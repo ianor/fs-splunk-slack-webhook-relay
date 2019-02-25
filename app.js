@@ -27,7 +27,7 @@ app.post('/:key', (req, res) => {
       const { folderCount, success, duration, artifactCount } = payload.result;
       const icon = success === 'true' ? ':white_check_mark:' : ':x:';
       const successful = success === 'true' ? 'successful' : 'failed'
-      message = `${icon} A *${successful}* ingest was logged by AMCS with the following information:`;
+      message = `${icon}  A *${successful}* ingest was logged by AMCS with the following information:`;
       attachments.unshift({
         fallback: username,
         color: '#4b94fc',
