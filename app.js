@@ -17,7 +17,7 @@ app.post('/:key', (req, res) => {
   const link = payload.results_link; //eslint-disable-line camelcase
   const attachments = [{
     fallback: username,
-    color: '#FCB34B',
+    color: '#aaaaaa',
     text: link
   }];
 
@@ -30,7 +30,7 @@ app.post('/:key', (req, res) => {
       message = `${icon}  A *${successful}* ingest was logged by AMCS with the following information:`;
       attachments.unshift({
         fallback: username,
-        color: '#aaaaaa',
+        color: '#FCB34B',
         text: `Duration: ${Math.round(10*parseInt(duration)/60/60)/10}h \nArtifact Count: ${artifactCount} \nFolder Count: ${folderCount}`
       });
       break;
