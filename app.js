@@ -21,7 +21,7 @@ app.post('/:key', (req, res) => {
       icon = success === 'true' ? ':white_check_mark:' : ':x:';
       const successful = success === 'true' ? 'successful' : 'failed'
       message = `A *${successful}* ingest was detected with the following information:
-      Duration: ${parseInt(duration)/60/60}h
+      Duration: ${Math.round(10*parseInt(duration)/60/60)/10}h
       Artifact Count: ${artifactCount}
       Folder Count: ${folderCount}`;
       break;
@@ -33,6 +33,7 @@ app.post('/:key', (req, res) => {
       break;
     default:
       console.warn('*** Key not recognized ***')
+      res.status(501).end();
       return;
   }
   
@@ -44,7 +45,7 @@ app.post('/:key', (req, res) => {
   let postData = {
     username,
     text: message,
-    // icon_emoji: icon, // eslint-disable-line camelcase
+    icon_emoji: icon, // eslint-disable-line camelcase
     attachments: [
       {
         fallback: username,
@@ -65,6 +66,9 @@ app.post('/:key', (req, res) => {
       console.log('*** Failed to post ***');
       console.log(res.status);
       console.log(res.message);
+      res.status(500).end();
+    } else {
+      res.status(200).end();
     }
   });
 
