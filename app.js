@@ -31,9 +31,7 @@ app.post('/:key', (req, res) => {
       attachments.unshift({
         fallback: username,
         color: '#FCB34B',
-        text: `Duration: ${Math.round(10*parseInt(duration)/60/60)/10}h
-        Artifact Count: ${artifactCount}
-        Folder Count: ${folderCount}`
+        text: `Duration: ${Math.round(10*parseInt(duration)/60/60)/10}h \nArtifact Count: ${artifactCount} \nFolder Count: ${folderCount}`
       });
       break;
 
