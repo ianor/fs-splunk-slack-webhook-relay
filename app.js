@@ -61,11 +61,11 @@ app.post('/:key', (req, res) => {
     method: 'POST',
     body: JSON.stringify(postData),
     headers: { 'Content-Type': 'application/json' }
-  }).then(res => {
-    if (!res.ok) {
+  }).then(response => {
+    if (!response.ok) {
       console.log('*** Failed to post ***');
-      console.log(res.status);
-      console.log(res.message);
+      console.log(response.status);
+      console.log(response.message);
       res.status(500).end();
     } else {
       res.status(200).end();
