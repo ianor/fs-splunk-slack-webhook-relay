@@ -14,22 +14,20 @@ app.post('/:key', (req, res) => {
   //console.log(payload);
 
   let message = null;
-  let icon = null;
   switch (req.params.key) {
     case ingestKey:
       const { folderCount, success, duration, artifactCount } = payload.result;
-      icon = success === 'true' ? ':white_check_mark:' : ':x:';
+      const icon = success === 'true' ? ':white_check_mark:' : ':x:';
       const successful = success === 'true' ? 'successful' : 'failed'
-      message = `A *${successful}* ingest was logged by AMCS with the following information:
+      message = `${icon} A *${successful}* ingest was logged by AMCS with the following information:
       Duration: ${Math.round(10*parseInt(duration)/60/60)/10}h
       Artifact Count: ${artifactCount}
       Folder Count: ${folderCount}`;
       break;
     case noIngestKey:
       const { daysSinceLastEvent } = payload.result;
-      message = `<!channel> There has not been an ingest in *${daysSinceLastEvent}* days (as reported by AMCS).
+      message = `:question: <!channel> There has not been an ingest in *${daysSinceLastEvent}* days (as reported by AMCS).
       Something might be wrong :grimacing:.`;
-      icon = ':question:';
       break;
     default:
       console.warn('*** Key not recognized ***')
@@ -45,7 +43,6 @@ app.post('/:key', (req, res) => {
   let postData = {
     username,
     text: message,
-    icon_emoji: icon, // eslint-disable-line camelcase
     attachments: [
       {
         fallback: username,
