@@ -20,8 +20,8 @@ app.post('/:secret', (req, res) => {
   const username = 'Splunk';
   const link = payload.results_link; //eslint-disable-line camelcase
   const { daysSinceLastEvent } = payload.result;
-  const message = `<!channel> There has not been an ingest in *${daysSinceLastEvent}* days.
-  Something might be wrong.`;
+  const message = `<!channel> There has not been an ingest in *${daysSinceLastEvent}* days (as reported by AMCS).
+  Something might be wrong :grimacing:.`;
   let postData = {
     username,
     text: message,
