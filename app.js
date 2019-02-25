@@ -20,7 +20,7 @@ app.post('/:key', (req, res) => {
       const { folderCount, success, duration, artifactCount } = payload.result;
       icon = success === 'true' ? ':white_check_mark:' : ':x:';
       const successful = success === 'true' ? 'successful' : 'failed'
-      message = `A *${success}* ingest was detected with the following information:
+      message = `A *${successful}* ingest was detected with the following information:
       Duration: ${parseInt(duration)/60/60}h
       Artifact Count: ${artifactCount}
       Folder Count: ${folderCount}`;
@@ -53,6 +53,8 @@ app.post('/:key', (req, res) => {
       }
     ]
   };
+
+  console.log(postData);
 
   fetch(slackURL, {
     method: 'POST',
