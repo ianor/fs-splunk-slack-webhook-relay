@@ -20,7 +20,7 @@ app.post('/:key', (req, res) => {
       const { folderCount, success, duration, artifactCount } = payload.result;
       icon = success === 'true' ? ':white_check_mark:' : ':x:';
       const successful = success === 'true' ? 'successful' : 'failed'
-      message = `A *${successful}* ingest was detected with the following information:
+      message = `A *${successful}* ingest was logged by AMCS with the following information:
       Duration: ${Math.round(10*parseInt(duration)/60/60)/10}h
       Artifact Count: ${artifactCount}
       Folder Count: ${folderCount}`;
