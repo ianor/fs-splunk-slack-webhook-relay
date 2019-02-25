@@ -11,15 +11,16 @@ const noIngestKey = process.env.noIngestKey;
 
 app.post('/:key', (req, res) => {
   const payload = req.body;
-  console.log(payload);
+  //console.log(payload);
 
   let message = null;
   let icon = null;
   switch (req.params.key) {
     case ingestKey:
       const { folderCount, success, duration, artifactCount } = payload.result;
-      icon = success === 'successful' ? ':white_check_mark:' : ':x:';
-      message = `A ${success} ingest was detected with the following information:
+      icon = success === 'true' ? ':white_check_mark:' : ':x:';
+      const successful = success === 'true' ? 'successful' : 'failed'
+      message = `A *${success}* ingest was detected with the following information:
       Duration: ${parseInt(duration)/60/60}h
       Artifact Count: ${artifactCount}
       Folder Count: ${folderCount}`;
