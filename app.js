@@ -19,7 +19,7 @@ app.post('/:secret', (req, res) => {
   //transform to a proper slack payload and post to slackURL
   const username = 'Splunk';
   const link = payload.results_link; //eslint-disable-line camelcase
-  const { daysSinceLastEvent } = payload.results;
+  const { daysSinceLastEvent } = payload.result;
   const message = `<!channel> There has not been an ingest in *${daysSinceLastEvent}* days.
   Something might be wrong.`;
   let postData = {
@@ -43,7 +43,7 @@ app.post('/:secret', (req, res) => {
     if (!res.ok) console.log('*** Failed to post ***');
   });
 
-  
+
   /*
   {
     owner: 'ianor182',
