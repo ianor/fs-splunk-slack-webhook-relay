@@ -24,14 +24,14 @@ app.post('/:key', (req, res) => {
   let message = null;
   switch (req.params.key) {
     case ingestKey:
-      const { folderCount, success, duration, artifactCount } = payload.result;
+      const { folderId, success, duration } = payload.result;
       const icon = success === 'true' ? ':white_check_mark:' : ':x:';
       const successful = success === 'true' ? 'successful' : 'failed'
       message = `${icon}  A *${successful}* ingest was logged by AMCS with the following information:`;
       attachments.unshift({
         fallback: username,
         color: '#FCB34B',
-        text: `Duration: ${Math.round(10*parseInt(duration)/60/60)/10}h \nArtifact Count: ${artifactCount} \nFolder Count: ${folderCount}`
+        text: `Duration: ${Math.round(10*parseInt(duration)/60/60)/10}h \nFolder ID: ${folderId}`
       });
       break;
 
